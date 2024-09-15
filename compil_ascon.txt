@@ -1,0 +1,45 @@
+# --------- SCRIPT DE COMPILATION DU PROJET ASCON -----------
+
+
+# ----- SI VOUS UTILISEZ TALLINN, VEUILLEZ DECOMMENTER LES DEUX LIGNES SUIVANTES ----- 
+# rm -rf ./LIB/LIB_RTL
+# rm -rf ./LIB/LIB_BENCH
+
+
+# Build librairies
+vlib ./LIB/LIB_RTL
+vmap LIB_RTL ./LIB/LIB_RTL
+vlib ./LIB/LIB_BENCH
+vmap LIB_BENCH ./LIB/LIB_BENCH
+
+
+# -------COMPIL RTL SOURCES-------
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/ascon_pack.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/constant_addition.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/ascon_sbox.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/substitution_layer.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/diffusion_layer.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/mux_state.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/register_w_en.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/state_register_w_en.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/xor_begin_perm.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/xor_end_perm.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/permutation_step_1.sv
+vlog -sv +acc -svinputport=net -work LIB_RTL ./SRC/RTL/permutation.sv
+
+# -------COMPIL BENCH SOURCES-------
+#vlog -sv +acc -svinputport=net -work LIB_BENCH -L LIB_RTL SRC/BENCH/constant_addition_tb.sv
+#vlog -sv +acc -svinputport=net -work LIB_BENCH -L LIB_RTL SRC/BENCH/ascon_sbox_tb.sv
+#vlog -sv +acc -svinputport=net -work LIB_BENCH -L LIB_RTL SRC/BENCH/substitution_layer_tb.sv
+#vlog -sv +acc -svinputport=net -work LIB_BENCH -L LIB_RTL SRC/BENCH/diffusion_layer_tb.sv
+vlog -sv +acc -svinputport=net -work LIB_BENCH -L LIB_RTL SRC/BENCH/permutation_step_1_tb.sv
+#vlog -sv +acc -svinputport=net -work LIB_BENCH -L LIB_RTL SRC/BENCH/permutation_tb.sv
+
+# --------SIMULATION--------
+# /!\ Uncomment only one vsim command below
+#vsim -L LIB_RTL LIB_BENCH.constant_addition_tb
+#vsim -L LIB_RTL LIB_BENCH.ascon_sbox_tb
+#vsim -L LIB_RTL LIB_BENCH.substitution_layer_tb
+#vsim -L LIB_RTL LIB_BENCH.diffusion_layer_tb
+vsim -L LIB_RTL LIB_BENCH.permutation_step_1_tb
+#vsim -L LIB_RTL LIB_BENCH.permutation_tb
