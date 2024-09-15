@@ -9,7 +9,7 @@ This repository contains the implementation of the ASCON128 encryption algorithm
 
 ## Date
 
-- September 15, 2024
+- March 29, 2024
 
 ## Project Overview
 
