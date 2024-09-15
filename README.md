@@ -3,10 +3,6 @@
 
 This repository contains the implementation of the ASCON128 encryption algorithm, a simplified authenticated encryption with associated data (AEAD) system. The project was carried out as part of the Digital Systems Design course.
 
-## Author
-
-- Gevorg ISHKHANYAN
-
 ## Date
 
 - March 29, 2024
